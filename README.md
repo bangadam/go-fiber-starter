@@ -17,11 +17,11 @@
 
   <img alt="License" src="https://img.shields.io/github/license/bangadam/go-fiber-starter?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/bangadam/go-fiber-starter?color=56BEB8" /> -->
+  <img alt="Github issues" src="https://img.shields.io/github/issues/bangadam/go-fiber-starter?color=56BEB8" />
 
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/bangadam/go-fiber-starter?color=56BEB8" /> -->
+  <img alt="Github forks" src="https://img.shields.io/github/forks/bangadam/go-fiber-starter?color=56BEB8" />
 
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/bangadam/go-fiber-starter?color=56BEB8" /> -->
+  <img alt="Github stars" src="https://img.shields.io/github/stars/bangadam/go-fiber-starter?color=56BEB8" />
 </p>
 
 <!-- Status -->
@@ -50,19 +50,28 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 
 ## :sparkles: Features
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+:heavy_check_mark: Logging;\
+:heavy_check_mark: Repository Pattern;\
+:heavy_check_mark: ORM database with Ent;\
+:dart: Mocking with GoMock;\
+:dart: Api documentation with Swaggo;\
+:dart: Add authentication with JWT;\
+:dart: Containerization with Docker compose;\
+:dart: Unit testing with testify;\
+:dart: CI\CD with Github Actions;\
 
 ## :rocket: Technologies
 
 The following tools were used in this project:
 
-<!-- - [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/) -->
+- [Go](https://go.dev)
+- [PostgreSQL](https://www.postgresql.org)
+- [Docker](https://www.docker.com/)
+- [Fiber](https://github.com/gofiber/fiber)
+- [Ent](https://github.com/ent/ent)
+- [Fx](https://github.com/uber-go/fx)
+- [Zerolog](https://github.com/rs/zerolog)
+- [GoMock](https://github.com/golang/mock)
 
 ## :white_check_mark: Requirements
 
@@ -77,7 +86,9 @@ $ git clone https://github.com/bangadam/go-fiber-starter
 # Access
 $ cd go-fiber-starter
 
-# The server will initialize in the <http://localhost:3000>
+#
+
+# The server will initialize in the <http://{host}:{port}>
 ```
 
 ## :memo: License
