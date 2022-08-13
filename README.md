@@ -50,15 +50,15 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 
 ## :sparkles: Features
 
-:heavy_check_mark: Logging;\
-:heavy_check_mark: Repository Pattern;\
-:heavy_check_mark: ORM database with Ent;\
-:dart: Mocking with GoMock;\
-:dart: Api documentation with Swaggo;\
-:dart: Add authentication with JWT;\
-:dart: Containerization with Docker compose;\
-:dart: Unit testing with testify;\
-:dart: CI\CD with Github Actions;\
+:heavy_check_mark: Logging\
+:heavy_check_mark: Repository Pattern\
+:heavy_check_mark: ORM database with Ent\
+:dart: Mocking with GoMock\
+:dart: Api documentation with Swaggo\
+:dart: Add authentication with JWT\
+:dart: Containerization with Docker compose\
+:dart: Unit testing with testify\
+:dart: CI\CD with Github Actions\
 
 ## :rocket: Technologies
 
@@ -75,7 +75,7 @@ The following tools were used in this project:
 
 ## :white_check_mark: Requirements
 
-<!-- Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed. -->
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [Go](https://go.dev), [Docker](https://www.docker.com/) and [PostgreSQL](https://www.postgresql.org) installed.
 
 ## :checkered_flag: Starting
 
@@ -93,7 +93,7 @@ $ cd go-fiber-starter
 
 ## :memo: License
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE) file.
 
 Made with :heart: by <a href="https://github.com/bangadam" target="_blank">bangadam.dev</a>
 
