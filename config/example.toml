@@ -1,6 +1,6 @@
 # Configuration vars for cmd/app
 [app]
-name = "Fiber Boilerplate"
+name = "Fiber starter"
 port = ":8080"
 idle-timeout = 5 # As seconds
 print-routes = false
@@ -13,7 +13,7 @@ cert-file = "./storage/selfsigned.crt"
 key-file = "./storage/selfsigned.key"
 
 [db.postgres]
-dsn = "postgresql://postgres:postgres@postgres:5432/boilerplate" # <driver>://<username>:<password>@<host>:<port>/<database>
+dsn = "postgresql://postgres:postgres@127.0.0.1:5432/fiber-starter" # <driver>://<username>:<password>@<host>:<port>/<database>
 
 [logger]
 time-format = "" # https://pkg.go.dev/time#pkg-constants, https://github.com/rs/zerolog/blob/master/api.go#L10 

@@ -1,17 +1,20 @@
 package router
 
 import (
+	"github.com/bangadam/go-fiber-starter/app/module/article"
 	"github.com/bangadam/go-fiber-starter/storage"
 	"github.com/gofiber/fiber/v2"
 )
 
 type Router struct {
-	App fiber.Router
+	App           fiber.Router
+	ArticleRouter *article.ArticleRouter
 }
 
-func NewRouter(fiber *fiber.App) *Router {
+func NewRouter(fiber *fiber.App, articleRouter *article.ArticleRouter) *Router {
 	return &Router{
-		App: fiber,
+		App:           fiber,
+		ArticleRouter: articleRouter,
 	}
 }
 
@@ -33,5 +36,5 @@ func (r *Router) Register() {
 	})
 
 	// Register routes of modules
-	// r.ArticleRouter.RegisterArticleRoutes()
+	r.ArticleRouter.RegisterArticleRoutes()
 }

@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 
-	// "github.com/bangadam/go-fiber-starter/internal/ent"
+	"github.com/bangadam/go-fiber-starter/internal/ent"
 	"github.com/bangadam/go-fiber-starter/utils/config"
 	"github.com/rs/zerolog"
 
@@ -12,7 +12,6 @@ import (
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/schema"
-	"entgo.io/ent/examples/fs/ent"
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
 
