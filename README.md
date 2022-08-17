@@ -50,15 +50,15 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 
 ## :sparkles: Features
 
-[x] Logging\
-[x] Repository Pattern\
-[x] ORM database with Ent\
-[] Mocking with GoMock\
-[] Api documentation with Swaggo\
-[] Add authentication with JWT\
-[] Containerization with Docker compose\
-[] Unit testing with testify\
-[] CI\CD with Github Actions\
+- [x] Logging
+- [x] Repository Pattern
+- [x] ORM database with Ent
+- [] Mocking with GoMock
+- [] Api documentation with Swaggo
+- [] Add authentication with JWT
+- [] Containerization with Docker compose
+- [] Unit testing with testify
+- [] CI\CD with Github Actions
 
 ## :rocket: Technologies
 
