@@ -56,7 +56,7 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 - [ ] Mocking with GoMock
 - [ ] Api documentation with Swaggo
 - [ ] Add authentication with JWT
-- [ ] Containerization with Docker compose
+- [x] Containerization with Docker compose
 - [ ] Unit testing with testify
 - [ ] CI\CD with Github Actions
 

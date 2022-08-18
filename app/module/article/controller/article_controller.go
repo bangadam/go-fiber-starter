@@ -10,6 +10,7 @@ type ArticleController struct {
 	articleService *service.ArticleService
 }
 
+//go:generate mockgen -destination=article_controller_mock.go -package=controller . IArticleController
 type IArticleController interface {
 	Index(c *fiber.Ctx) error
 }

@@ -12,6 +12,7 @@ type ArticleRepository struct {
 	DB *database.Database
 }
 
+//go:generate mockgen -destination=article_repository_mock.go -package=repository . IArticleRepository
 type IArticleRepository interface {
 	GetArticles() ([]*ent.Article, error)
 }
