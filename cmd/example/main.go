@@ -13,6 +13,21 @@ import (
 	_ "go.uber.org/automaxprocs"
 )
 
+// @title                       Go Fiber Starter API Documentation
+// @version                     1.0
+// @description                 This is a sample API documentation.
+// @termsOfService              http://swagger.io/terms/
+// @contact.name                Developer
+// @contact.email               bangadam.dev@gmail.com
+// @license.name                Apache 2.0
+// @license.url                 http://www.apache.org/licenses/LICENSE-2.0.html
+// @host                        localhost:8080
+// @schemes                     http https
+// @securityDefinitions.apikey  Bearer
+// @in                          header
+// @name                        Authorization
+// @description                 "Type 'Bearer {TOKEN}' to correctly set the API Key"
+// @BasePath                    /
 func main() {
 	fx.New(
 		/* provide patterns */

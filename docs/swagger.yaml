@@ -1,0 +1,62 @@
+definitions:
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      messages:
+        items: {}
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: bangadam.dev@gmail.com
+    name: Developer
+  description: This is a sample API documentation.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Go Fiber Starter API Documentation
+  version: "1.0"
+paths:
+  /artcles:
+    get:
+      description: API for getting all articles
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.Response'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      security:
+      - Bearer: []
+      summary: Get all articles
+      tags:
+      - Task
+schemes:
+- http
+- https
+securityDefinitions:
+  Bearer:
+    description: '"Type ''Bearer {TOKEN}'' to correctly set the API Key"'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
