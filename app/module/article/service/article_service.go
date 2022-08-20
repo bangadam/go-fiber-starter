@@ -13,6 +13,7 @@ type ArticleService struct {
 // define interface of ArticleService
 type IArticleService interface {
 	GetArticles() ([]*ent.Article, error)
+	FindOne(id int) (*ent.Article, error)
 }
 
 // init ArticleService
@@ -25,4 +26,8 @@ func NewArticleService(repo *repository.ArticleRepository) *ArticleService {
 // implement interface of ArticleService
 func (_i *ArticleService) GetArticles() ([]*ent.Article, error) {
 	return _i.Repo.GetArticles()
+}
+
+func (_i *ArticleService) FindOne(id int) (*ent.Article, error) {
+	return _i.Repo.FindOne(id)
 }

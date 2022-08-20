@@ -15,6 +15,7 @@ type ArticleRepository struct {
 //go:generate mockgen -destination=article_repository_mock.go -package=repository . IArticleRepository
 type IArticleRepository interface {
 	GetArticles() ([]*ent.Article, error)
+	FindOne(id int) (*ent.Article, error)
 }
 
 func NewArticleRepository(db *database.Database) *ArticleRepository {
@@ -26,4 +27,8 @@ func NewArticleRepository(db *database.Database) *ArticleRepository {
 // implement interface of IArticleRepository
 func (_i *ArticleRepository) GetArticles() ([]*ent.Article, error) {
 	return _i.DB.Ent.Article.Query().Order(ent.Asc(article.FieldID)).All(context.Background())
+}
+
+func (_i *ArticleRepository) FindOne(id int) (*ent.Article, error) {
+	return _i.DB.Ent.Article.Query().Where(article.IDEQ(id)).First(context.Background())
 }

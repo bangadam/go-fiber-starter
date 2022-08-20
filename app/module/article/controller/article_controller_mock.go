@@ -47,3 +47,17 @@ func (mr *MockIArticleControllerMockRecorder) Index(arg0 interface{}) *gomock.Ca
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Index", reflect.TypeOf((*MockIArticleController)(nil).Index), arg0)
 }
+
+// Show mocks base method.
+func (m *MockIArticleController) Show(arg0 *fiber.Ctx) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Show", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Show indicates an expected call of Show.
+func (mr *MockIArticleControllerMockRecorder) Show(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Show", reflect.TypeOf((*MockIArticleController)(nil).Show), arg0)
+}
