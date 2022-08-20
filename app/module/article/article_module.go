@@ -45,5 +45,9 @@ func (_i *ArticleRouter) RegisterArticleRoutes() {
 	// define routes
 	_i.App.Route("/articles", func(router fiber.Router) {
 		router.Get("/", articleController.Index)
+		router.Get("/:id", articleController.Show)
+		router.Post("/", articleController.Store)
+		router.Put("/:id", articleController.Update)
+		router.Delete("/:id", articleController.Delete)
 	})
 }

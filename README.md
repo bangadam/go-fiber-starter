@@ -54,7 +54,7 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 - [x] Repository Pattern
 - [x] ORM database with Ent
 - [x] Mocking with GoMock
-- [ ] Api documentation with Swaggo
+- [x] Api documentation with Swaggo
 - [ ] Support JWT authentication
 - [x] Containerization with Docker compose
 - [ ] Unit testing with testify

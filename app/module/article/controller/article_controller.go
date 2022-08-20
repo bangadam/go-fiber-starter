@@ -3,6 +3,7 @@ package controller
 import (
 	"strconv"
 
+	"github.com/bangadam/go-fiber-starter/app/module/article/request"
 	"github.com/bangadam/go-fiber-starter/app/module/article/service"
 	"github.com/bangadam/go-fiber-starter/utils/response"
 	"github.com/gofiber/fiber/v2"
@@ -34,9 +35,9 @@ func NewArticleController(articleService *service.ArticleService) *ArticleContro
 // @Failure      404  {object}  response.Response
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
-// @Router       /artcles [get]
+// @Router       /articles [get]
 func (_i *ArticleController) Index(c *fiber.Ctx) error {
-	articles, err := _i.articleService.GetArticles()
+	articles, err := _i.articleService.All()
 	if err != nil {
 		return err
 	}
@@ -58,14 +59,14 @@ func (_i *ArticleController) Index(c *fiber.Ctx) error {
 // @Failure      404  {object}  response.Response
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
-// @Router       /artcles/:id [get]
+// @Router       /articles/:id [get]
 func (_i *ArticleController) Show(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return err
 	}
 
-	articles, err := _i.articleService.FindOne(id)
+	articles, err := _i.articleService.Show(id)
 	if err != nil {
 		return err
 	}
@@ -73,5 +74,97 @@ func (_i *ArticleController) Show(c *fiber.Ctx) error {
 	return response.Resp(c, response.Response{
 		Messages: response.Messages{"Article list successfully retrieved"},
 		Data:     articles,
+	})
+}
+
+// create article
+// @Summary      Create article
+// @Description  API for create article
+// @Tags         Task
+// @Security     Bearer
+// @Body 	     request.ArticleRequest
+// @Success      200  {object}  response.Response
+// @Failure      401  {object}  response.Response
+// @Failure      404  {object}  response.Response
+// @Failure      422  {object}  response.Response
+// @Failure      500  {object}  response.Response
+// @Router       /articles [post]
+func (_i *ArticleController) Store(c *fiber.Ctx) error {
+	req := new(request.ArticleRequest)
+	if err := response.ParseAndValidate(c, req); err != nil {
+		return err
+	}
+
+	article, err := _i.articleService.Store(*req)
+	if err != nil {
+		return err
+	}
+
+	return response.Resp(c, response.Response{
+		Messages: response.Messages{"Article successfully created"},
+		Data:     article,
+	})
+}
+
+// update article
+// @Summary      update article
+// @Description  API for update article
+// @Tags         Task
+// @Security     Bearer
+// @Body 	     request.ArticleRequest
+// @Param        id path int true "Article ID"
+// @Success      200  {object}  response.Response
+// @Failure      401  {object}  response.Response
+// @Failure      404  {object}  response.Response
+// @Failure      422  {object}  response.Response
+// @Failure      500  {object}  response.Response
+// @Router       /articles/:id [put]
+func (_i *ArticleController) Update(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return err
+	}
+
+	req := new(request.ArticleRequest)
+	if err := response.ParseAndValidate(c, req); err != nil {
+		return err
+	}
+
+	article, err := _i.articleService.Update(id, *req)
+	if err != nil {
+		return err
+	}
+
+	return response.Resp(c, response.Response{
+		Messages: response.Messages{"Article successfully updated"},
+		Data:     article,
+	})
+}
+
+// delete article
+// @Summary      delete article
+// @Description  API for delete article
+// @Tags         Task
+// @Security     Bearer
+// @Param        id path int true "Article ID"
+// @Success      200  {object}  response.Response
+// @Failure      401  {object}  response.Response
+// @Failure      404  {object}  response.Response
+// @Failure      422  {object}  response.Response
+// @Failure      500  {object}  response.Response
+// @Router       /articles/:id [delete]
+func (_i *ArticleController) Delete(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return err
+	}
+
+	err = _i.articleService.Destroy(id)
+	if err != nil {
+		return err
+	}
+
+	return response.Resp(c, response.Response{
+		Messages: response.Messages{"Article successfully deleted"},
 	})
 }
