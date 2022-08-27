@@ -39,6 +39,10 @@ enable = false
 max = 20
 expiration_seconds = 60
 
+[middleware.jwt]
+secret = "secret"
+expiration_seconds = 3600
+
 [middleware.filesystem]
 enable = false
 browse = true

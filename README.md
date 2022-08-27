@@ -52,13 +52,13 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 
 - [x] Logging
 - [x] Repository Pattern
-- [x] ORM database with Ent
+- [x] ORM database with Gorm
 - [x] Mocking with GoMock
 - [x] Api documentation with Swaggo
 - [ ] Support JWT authentication
 - [x] Containerization with Docker compose
 - [ ] Unit testing with testify
-- [ ] CI\CD with Github Actions
+- [x] CI\CD with Github Actions
 
 ## :rocket: Technologies
 
@@ -68,7 +68,7 @@ The following tools were used in this project:
 - [PostgreSQL](https://www.postgresql.org)
 - [Docker](https://www.docker.com/)
 - [Fiber](https://github.com/gofiber/fiber)
-- [Ent](https://github.com/ent/ent)
+- [Gorm](https://gorm.io)
 - [Fx](https://github.com/uber-go/fx)
 - [Zerolog](https://github.com/rs/zerolog)
 - [GoMock](https://github.com/golang/mock)
@@ -86,7 +86,8 @@ $ git clone https://github.com/bangadam/go-fiber-starter
 # Access
 $ cd go-fiber-starter
 
-#
+# Download dependencies
+$ go get -v ./...
 
 # The server will initialize in the <http://{host}:{port}>
 ```

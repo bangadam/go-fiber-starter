@@ -1,28 +1,22 @@
 package database
 
 import (
-	"context"
-
-	"github.com/bangadam/go-fiber-starter/internal/ent"
+	"github.com/bangadam/go-fiber-starter/app/database/schema"
 	"github.com/bangadam/go-fiber-starter/utils/config"
 	"github.com/rs/zerolog"
-
-	"database/sql"
-
-	"entgo.io/ent/dialect"
-	entsql "entgo.io/ent/dialect/sql"
-	"entgo.io/ent/dialect/sql/schema"
-	_ "github.com/jackc/pgx/v4/stdlib"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
+// setup database with gorm
 type Database struct {
-	Ent *ent.Client
+	DB  *gorm.DB
 	Log zerolog.Logger
 	Cfg *config.Config
 }
 
 type Seeder interface {
-	Seed(*ent.Client) error
+	Seed(*gorm.DB) error
 	Count() (int, error)
 }
 
@@ -35,51 +29,63 @@ func NewDatabase(cfg *config.Config, log zerolog.Logger) *Database {
 	return db
 }
 
-func (db *Database) ConnectDatabase() {
-	conn, err := sql.Open("pgx", db.Cfg.DB.Postgres.DSN)
+// connect database
+func (_db *Database) ConnectDatabase() {
+	conn, err := gorm.Open(postgres.Open(_db.Cfg.DB.Postgres.DSN), &gorm.Config{})
 	if err != nil {
-		db.Log.Error().Err(err).Msg("An unknown error occurred when to connect the database!")
+		_db.Log.Error().Err(err).Msg("An unknown error occurred when to connect the database!")
 	} else {
-		db.Log.Info().Msg("Connected the database succesfully!")
+		_db.Log.Info().Msg("Connected the database succesfully!")
 	}
 
-	drv := entsql.OpenDB(dialect.Postgres, conn)
-	db.Ent = ent.NewClient(ent.Driver(drv))
+	_db.DB = conn
 }
 
-func (db *Database) ShutdownDatabase() {
-	if err := db.Ent.Close(); err != nil {
-		db.Log.Error().Err(err).Msg("An unknown error occurred when to shutdown the database!")
-	}
-}
-
-func (db *Database) MigrateModels() {
-	if err := db.Ent.Schema.Create(context.Background(), schema.WithAtlas(true)); err != nil {
-		db.Log.Error().Err(err).Msg("Failed creating schema resources!")
+// shutdown database
+func (_db *Database) ShutdownDatabase() {
+	sqlDB, err := _db.DB.DB()
+	if err != nil {
+		_db.Log.Error().Err(err).Msg("An unknown error occurred when to shutdown the database!")
 	} else {
-		db.Log.Info().Msg("Models were migrated successfully!")
+		_db.Log.Info().Msg("Shutdown the database succesfully!")
+	}
+	sqlDB.Close()
+}
+
+// migrate models
+func (_db *Database) MigrateModels() {
+	if err := _db.DB.AutoMigrate(
+		Models()...,
+	); err != nil {
+		_db.Log.Error().Err(err).Msg("An unknown error occurred when to migrate the database!")
 	}
 }
 
-func (db *Database) SeedModels(seeder ...Seeder) {
-	for _, v := range seeder {
+// list of models for migration
+func Models() []interface{} {
+	return []interface{}{
+		schema.Article{},
+	}
+}
 
-		count, err := v.Count()
+// seed data
+func (_db *Database) SeedModels(seeder ...Seeder) {
+	for _, seed := range seeder {
+		count, err := seed.Count()
 		if err != nil {
-			db.Log.Panic().Err(err).Msg("")
+			_db.Log.Error().Err(err).Msg("An unknown error occurred when to seed the database!")
 		}
 
 		if count == 0 {
-			err = v.Seed(db.Ent)
-			if err != nil {
-				db.Log.Panic().Err(err).Msg("")
+			if err := seed.Seed(_db.DB); err != nil {
+				_db.Log.Error().Err(err).Msg("An unknown error occurred when to seed the database!")
 			}
 
-			db.Log.Debug().Msg("Table has seeded successfully.")
+			_db.Log.Info().Msg("Seeded the database succesfully!")
 		} else {
-			db.Log.Warn().Msg("Table has seeded already. Skipping!")
+			_db.Log.Info().Msg("Database is already seeded!")
 		}
 	}
 
-	db.Log.Info().Msg("Seeding was completed!")
+	_db.Log.Info().Msg("Seeded the database succesfully!")
 }

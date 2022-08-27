@@ -61,7 +61,7 @@ func (_i *ArticleController) Index(c *fiber.Ctx) error {
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [get]
 func (_i *ArticleController) Show(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
+	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
 	}
@@ -72,7 +72,7 @@ func (_i *ArticleController) Show(c *fiber.Ctx) error {
 	}
 
 	return response.Resp(c, response.Response{
-		Messages: response.Messages{"Article list successfully retrieved"},
+		Messages: response.Messages{"Article successfully retrieved"},
 		Data:     articles,
 	})
 }
@@ -95,14 +95,13 @@ func (_i *ArticleController) Store(c *fiber.Ctx) error {
 		return err
 	}
 
-	article, err := _i.articleService.Store(*req)
+	err := _i.articleService.Store(*req)
 	if err != nil {
 		return err
 	}
 
 	return response.Resp(c, response.Response{
 		Messages: response.Messages{"Article successfully created"},
-		Data:     article,
 	})
 }
 
@@ -120,7 +119,7 @@ func (_i *ArticleController) Store(c *fiber.Ctx) error {
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [put]
 func (_i *ArticleController) Update(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
+	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
 	}
@@ -130,14 +129,13 @@ func (_i *ArticleController) Update(c *fiber.Ctx) error {
 		return err
 	}
 
-	article, err := _i.articleService.Update(id, *req)
+	err = _i.articleService.Update(id, *req)
 	if err != nil {
 		return err
 	}
 
 	return response.Resp(c, response.Response{
 		Messages: response.Messages{"Article successfully updated"},
-		Data:     article,
 	})
 }
 
@@ -154,7 +152,7 @@ func (_i *ArticleController) Update(c *fiber.Ctx) error {
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [delete]
 func (_i *ArticleController) Delete(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
+	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
 	}
