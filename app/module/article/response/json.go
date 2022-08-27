@@ -18,6 +18,7 @@ type Article struct {
 func FromDomain(article *schema.Article) (res *Article) {
 	if article != nil {
 		res = &Article{
+			ID: 	article.ID,
 			Title:     article.Title,
 			Content:   article.Content,
 			CreatedAt: article.CreatedAt,

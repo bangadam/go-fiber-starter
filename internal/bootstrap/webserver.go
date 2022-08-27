@@ -106,13 +106,17 @@ func Start(lifecycle fx.Lifecycle, cfg *config.Config, fiber *fiber.App, router 
 
 				database.ConnectDatabase()
 
-				// read flag --migrate to migrate the database
-				if flag.Bool("migrate", true, "") != nil {
+				migrate := flag.Bool("migrate", false, "migrate the database")
+				seeder := flag.Bool("seed", false, "seed the database")
+				flag.Parse()
+
+				// read flag -migrate to migrate the database
+				if *migrate {
 					database.MigrateModels()
 				}
-				// read flag --seed to seed the database
-				if flag.Bool("seed", true, "") != nil {
-					database.SeedData()
+				// read flag -seed to seed the database
+				if *seeder {
+					database.SeedModels()
 				}
 
 				return nil

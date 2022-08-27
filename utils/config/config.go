@@ -2,6 +2,8 @@ package config
 
 import (
 	"os"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 
@@ -76,7 +78,7 @@ type middleware = struct {
 	}
 
 	Jwt struct {
-		Secret string `toml:"secret"`
+		Secret     string        `toml:"secret"`
 		Expiration time.Duration `toml:"expiration_seconds"`
 	}
 }
@@ -99,7 +101,10 @@ func ParseConfig(name string, debug ...bool) (*Config, error) {
 	if len(debug) > 0 {
 		file, err = os.ReadFile(name)
 	} else {
-		file, err = os.ReadFile("./config/" + name + ".toml")
+		_, b, _, _ := runtime.Caller(0)
+		// get base path
+		path := filepath.Dir(filepath.Dir(filepath.Dir(b)))
+		file, err = os.ReadFile(filepath.Join(path, "./config/", name+".toml"))
 	}
 
 	if err != nil {

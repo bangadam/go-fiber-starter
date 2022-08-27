@@ -1,11 +1,7 @@
 package database
 
 import (
-	"fmt"
-	"log"
-
 	"github.com/bangadam/go-fiber-starter/app/database/schema"
-	"github.com/bangadam/go-fiber-starter/app/database/seeds"
 	"github.com/bangadam/go-fiber-starter/utils/config"
 	"github.com/rs/zerolog"
 	"gorm.io/driver/postgres"
@@ -17,6 +13,11 @@ type Database struct {
 	DB  *gorm.DB
 	Log zerolog.Logger
 	Cfg *config.Config
+}
+
+type Seeder interface {
+	Seed(*gorm.DB) error
+	Count() (int, error)
 }
 
 func NewDatabase(cfg *config.Config, log zerolog.Logger) *Database {
@@ -53,9 +54,6 @@ func (_db *Database) ShutdownDatabase() {
 
 // migrate models
 func (_db *Database) MigrateModels() {
-	fmt.Println("----------------------------------")
-	fmt.Println("| Running Migration:  |")
-	fmt.Println("----------------------------------")
 	if err := _db.DB.AutoMigrate(
 		Models()...,
 	); err != nil {
@@ -71,13 +69,23 @@ func Models() []interface{} {
 }
 
 // seed data
-func (_db *Database) SeedData() {
-	for _, seed := range seeds.All() {
-		fmt.Println("----------------------------------")
-		fmt.Println("| Running Seed: " + seed.Name + " |")
-		fmt.Println("----------------------------------")
-		if err := seed.Run(_db.DB); err != nil {
-			log.Fatal(err)
+func (_db *Database) SeedModels(seeder ...Seeder) {
+	for _, seed := range seeder {
+		count, err := seed.Count()
+		if err != nil {
+			_db.Log.Error().Err(err).Msg("An unknown error occurred when to seed the database!")
+		}
+
+		if count == 0 {
+			if err := seed.Seed(_db.DB); err != nil {
+				_db.Log.Error().Err(err).Msg("An unknown error occurred when to seed the database!")
+			}
+
+			_db.Log.Info().Msg("Seeded the database succesfully!")
+		} else {
+			_db.Log.Info().Msg("Database is already seeded!")
 		}
 	}
+
+	_db.Log.Info().Msg("Seeded the database succesfully!")
 }
