@@ -74,6 +74,11 @@ type middleware = struct {
 		Index  string
 		Root   string
 	}
+
+	Jwt struct {
+		Secret string `toml:"secret"`
+		Expiration time.Duration `toml:"expiration_seconds"`
+	}
 }
 
 type Config struct {

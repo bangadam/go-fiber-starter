@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"context"
+	"flag"
 	"os"
 	"runtime"
 	"strings"
@@ -105,8 +106,14 @@ func Start(lifecycle fx.Lifecycle, cfg *config.Config, fiber *fiber.App, router 
 
 				database.ConnectDatabase()
 
-				database.MigrateModels()
-				database.SeedModels()
+				// read flag --migrate to migrate the database
+				if flag.Bool("migrate", true, "") != nil {
+					database.MigrateModels()
+				}
+				// read flag --seed to seed the database
+				if flag.Bool("seed", true, "") != nil {
+					database.SeedData()
+				}
 
 				return nil
 			},
