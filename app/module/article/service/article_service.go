@@ -11,7 +11,8 @@ type ArticleService struct {
 	Repo *repository.ArticleRepository
 }
 
-// define interface of ArticleService
+//go:generate mockgen -destination=article_service_mock.go -package=service . IArticleService
+// define interface of IArticleService
 type IArticleService interface {
 	All() (articles []*response.Article, err error)
 	Show(id uint64) (article *response.Article, err error)
