@@ -8,13 +8,12 @@ require (
 	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/go-playground/validator/v10 v10.11.0
-	github.com/gofiber/fiber/v2 v2.36.0
+	github.com/gofiber/fiber/v2 v2.37.0
 	github.com/gofiber/jwt/v2 v2.2.7
-	github.com/gofiber/swagger v0.1.0
-	github.com/golang/mock v1.6.0
+	github.com/gofiber/swagger v0.1.1
 	github.com/pelletier/go-toml/v2 v2.0.2
 	github.com/rs/zerolog v1.27.0
-	github.com/swaggo/swag v1.8.4
+	github.com/swaggo/swag v1.8.5
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/fx v1.18.1
 	gorm.io/driver/postgres v1.3.9
@@ -37,7 +36,7 @@ require (
 	github.com/jackc/pgproto3/v2 v2.3.1 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.12.0 // indirect
-	github.com/jackc/pgx/v4 v4.17.0 // indirect
+	github.com/jackc/pgx/v4 v4.17.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
