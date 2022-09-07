@@ -7,13 +7,13 @@ import (
 )
 
 // ArticleService
-type ArticleService struct {
-	Repo *repository.ArticleRepository
+type articleService struct {
+	Repo repository.ArticleRepository
 }
 
-//go:generate mockgen -destination=article_service_mock.go -package=service . IArticleService
+//go:generate mockgen -destination=article_service_mock.go -package=service . ArticleService
 // define interface of IArticleService
-type IArticleService interface {
+type ArticleService interface {
 	All() (articles []*response.Article, err error)
 	Show(id uint64) (article *response.Article, err error)
 	Store(req request.ArticleRequest) (err error)
@@ -22,14 +22,14 @@ type IArticleService interface {
 }
 
 // init ArticleService
-func NewArticleService(repo *repository.ArticleRepository) *ArticleService {
-	return &ArticleService{
+func NewArticleService(repo repository.ArticleRepository) ArticleService {
+	return &articleService{
 		Repo: repo,
 	}
 }
 
 // implement interface of ArticleService
-func (_i *ArticleService) All() (articles []*response.Article, err error) {
+func (_i *articleService) All() (articles []*response.Article, err error) {
 	results, err := _i.Repo.GetArticles()
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (_i *ArticleService) All() (articles []*response.Article, err error) {
 	return articles, nil
 }
 
-func (_i *ArticleService) Show(id uint64) (article *response.Article, err error) {
+func (_i *articleService) Show(id uint64) (article *response.Article, err error) {
 	result, err := _i.Repo.FindOne(id)
 	if err != nil {
 		return nil, err
@@ -51,14 +51,14 @@ func (_i *ArticleService) Show(id uint64) (article *response.Article, err error)
 	return response.FromDomain(result), nil
 }
 
-func (_i *ArticleService) Store(req request.ArticleRequest) (err error) {
+func (_i *articleService) Store(req request.ArticleRequest) (err error) {
 	return _i.Repo.Create(req.ToDomain())
 }
 
-func (_i *ArticleService) Update(id uint64, req request.ArticleRequest) (err error) {
+func (_i *articleService) Update(id uint64, req request.ArticleRequest) (err error) {
 	return _i.Repo.Update(id, req.ToDomain())
 }
 
-func (_i *ArticleService) Destroy(id uint64) error {
+func (_i *articleService) Destroy(id uint64) error {
 	return _i.Repo.Delete(id)
 }

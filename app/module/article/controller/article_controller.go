@@ -9,18 +9,20 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type ArticleController struct {
-	articleService *service.ArticleService
+type articleController struct {
+	articleService service.ArticleService
 }
 
-//go:generate mockgen -destination=article_controller_mock.go -package=controller . IArticleController
-type IArticleController interface {
+type ArticleController interface {
 	Index(c *fiber.Ctx) error
 	Show(c *fiber.Ctx) error
+	Store(c *fiber.Ctx) error
+	Update(c *fiber.Ctx) error
+	Delete(c *fiber.Ctx) error
 }
 
-func NewArticleController(articleService *service.ArticleService) *ArticleController {
-	return &ArticleController{
+func NewArticleController(articleService service.ArticleService) ArticleController {
+	return &articleController{
 		articleService: articleService,
 	}
 }
@@ -36,7 +38,7 @@ func NewArticleController(articleService *service.ArticleService) *ArticleContro
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
 // @Router       /articles [get]
-func (_i *ArticleController) Index(c *fiber.Ctx) error {
+func (_i *articleController) Index(c *fiber.Ctx) error {
 	articles, err := _i.articleService.All()
 	if err != nil {
 		return err
@@ -60,7 +62,7 @@ func (_i *ArticleController) Index(c *fiber.Ctx) error {
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [get]
-func (_i *ArticleController) Show(c *fiber.Ctx) error {
+func (_i *articleController) Show(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
@@ -89,7 +91,7 @@ func (_i *ArticleController) Show(c *fiber.Ctx) error {
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
 // @Router       /articles [post]
-func (_i *ArticleController) Store(c *fiber.Ctx) error {
+func (_i *articleController) Store(c *fiber.Ctx) error {
 	req := new(request.ArticleRequest)
 	if err := response.ParseAndValidate(c, req); err != nil {
 		return err
@@ -118,7 +120,7 @@ func (_i *ArticleController) Store(c *fiber.Ctx) error {
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [put]
-func (_i *ArticleController) Update(c *fiber.Ctx) error {
+func (_i *articleController) Update(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
@@ -151,7 +153,7 @@ func (_i *ArticleController) Update(c *fiber.Ctx) error {
 // @Failure      422  {object}  response.Response
 // @Failure      500  {object}  response.Response
 // @Router       /articles/:id [delete]
-func (_i *ArticleController) Delete(c *fiber.Ctx) error {
+func (_i *articleController) Delete(c *fiber.Ctx) error {
 	id, err := strconv.ParseUint(c.Params("id"), 10, 64)
 	if err != nil {
 		return err
