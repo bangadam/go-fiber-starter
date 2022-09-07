@@ -57,7 +57,7 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 - [x] Api documentation with Swaggo
 - [ ] Support JWT authentication
 - [x] Containerization with Docker compose
-- [ ] Unit testing with testify
+- [x] Unit testing with testify
 - [x] CI\CD with Github Actions
 
 ## :rocket: Technologies
@@ -88,6 +88,9 @@ $ cd go-fiber-starter
 
 # Download dependencies
 $ go get -v ./...
+
+# Run the project
+$ go run cmd/example/main.go
 
 # The server will initialize in the <http://{host}:{port}>
 ```
