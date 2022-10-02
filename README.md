@@ -55,7 +55,7 @@ Simple and scalable starter kit to build powerful and organized REST projects wi
 - [x] ORM database with Gorm
 - [x] Mocking with GoMock
 - [x] Api documentation with Swaggo
-- [ ] Support JWT authentication
+- [x] Support JWT authentication
 - [x] Containerization with Docker compose
 - [x] Unit testing with testify
 - [x] CI\CD with Github Actions

@@ -1,9 +1,13 @@
 package middleware
 
 import (
+	"strconv"
+	"time"
+
 	"github.com/bangadam/go-fiber-starter/utils/config"
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func Protected() fiber.Handler {
@@ -26,4 +30,34 @@ func jwtError(c *fiber.Ctx, err error) error {
 	}
 	return c.Status(fiber.StatusUnauthorized).
 		JSON(fiber.Map{"status": "error", "message": "Invalid or expired JWT", "data": nil})
+}
+
+type JWTClaims struct {
+	Token string `json:"token"`
+	Type  string `json:"type"`
+	jwt.StandardClaims
+}
+
+func GenerateTokenAccess(userID uint64) (*JWTClaims, error) {
+	conf := config.NewConfig()
+
+	mySigningKey := []byte(conf.Middleware.Jwt.Secret)
+	// Create the Claims
+	exp := time.Now().Add(conf.Middleware.Jwt.Expiration).Unix()
+	claims := &JWTClaims{
+		Type: "Bearer",
+		StandardClaims: jwt.StandardClaims{
+			Id:        strconv.FormatUint(userID, 10),
+			ExpiresAt: exp,
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	ss, err := token.SignedString(mySigningKey)
+
+	if err != nil {
+		return nil, err
+	}
+
+	claims.Token = ss
+	return claims, nil
 }
