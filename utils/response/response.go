@@ -26,7 +26,8 @@ func (e *Error) Error() string {
 type Response struct {
 	Code     int      `json:"code"`
 	Messages Messages `json:"messages"`
-	Data     any      `json:"data"`
+	Data     any      `json:"data,omitempty"`
+	Meta	 any      `json:"meta,omitempty"`
 }
 
 // nothiing to describe this fucking variable

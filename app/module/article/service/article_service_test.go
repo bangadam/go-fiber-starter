@@ -52,7 +52,7 @@ func TestArticleService_All(t *testing.T) {
 		{
 			name: "TEST_PASS",
 			prepare: func(f *fields) {
-				f.articleRepo.EXPECT().GetArticles().Return([]*schema.Article{
+				f.articleRepo.EXPECT().GetArticles(request.ArticlesRequest{}).Return([]*schema.Article{
 					{
 						ID:      1,
 						Title:   "test",
@@ -65,7 +65,7 @@ func TestArticleService_All(t *testing.T) {
 		{
 			name: "TEST_FAILED_GET_ARTICLES",
 			prepare: func(f *fields) {
-				f.articleRepo.EXPECT().GetArticles().Return(nil, errors.New("error"))
+				f.articleRepo.EXPECT().GetArticles(request.ArticlesRequest{}).Return(nil, errors.New("error"))
 			},
 			wantErr: true,
 		},
@@ -88,7 +88,7 @@ func TestArticleService_All(t *testing.T) {
 				Repo: f.articleRepo,
 			}
 
-			if _, err := s.All(); (err != nil) != tt.wantErr {
+			if _, _, err := s.All(request.ArticlesRequest{}); (err != nil) != tt.wantErr {
 				t.Errorf("ArticleService.All() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

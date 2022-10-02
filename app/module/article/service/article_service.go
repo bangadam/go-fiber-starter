@@ -4,6 +4,7 @@ import (
 	"github.com/bangadam/go-fiber-starter/app/module/article/repository"
 	"github.com/bangadam/go-fiber-starter/app/module/article/request"
 	"github.com/bangadam/go-fiber-starter/app/module/article/response"
+	"github.com/bangadam/go-fiber-starter/utils/paginator"
 )
 
 // ArticleService
@@ -14,7 +15,7 @@ type articleService struct {
 //go:generate mockgen -destination=article_service_mock.go -package=service . ArticleService
 // define interface of IArticleService
 type ArticleService interface {
-	All() (articles []*response.Article, err error)
+	All(req request.ArticlesRequest) (articles []*response.Article, paging paginator.Pagination, err error)
 	Show(id uint64) (article *response.Article, err error)
 	Store(req request.ArticleRequest) (err error)
 	Update(id uint64, req request.ArticleRequest) (err error)
@@ -29,17 +30,17 @@ func NewArticleService(repo repository.ArticleRepository) ArticleService {
 }
 
 // implement interface of ArticleService
-func (_i *articleService) All() (articles []*response.Article, err error) {
-	results, err := _i.Repo.GetArticles()
+func (_i *articleService) All(req request.ArticlesRequest) (articles []*response.Article, paging paginator.Pagination, err error) {
+	results, paging, err := _i.Repo.GetArticles(req)
 	if err != nil {
-		return nil, err
+		return
 	}
 
 	for _, result := range results {
 		articles = append(articles, response.FromDomain(result))
 	}
 
-	return articles, nil
+	return
 }
 
 func (_i *articleService) Show(id uint64) (article *response.Article, err error) {

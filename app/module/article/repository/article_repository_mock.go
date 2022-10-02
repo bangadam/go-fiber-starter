@@ -8,6 +8,8 @@ import (
 	reflect "reflect"
 
 	schema "github.com/bangadam/go-fiber-starter/app/database/schema"
+	request "github.com/bangadam/go-fiber-starter/app/module/article/request"
+	paginator "github.com/bangadam/go-fiber-starter/utils/paginator"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -78,18 +80,19 @@ func (mr *MockArticleRepositoryMockRecorder) FindOne(arg0 interface{}) *gomock.C
 }
 
 // GetArticles mocks base method.
-func (m *MockArticleRepository) GetArticles() ([]*schema.Article, error) {
+func (m *MockArticleRepository) GetArticles(arg0 request.ArticlesRequest) ([]*schema.Article, paginator.Pagination, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetArticles")
+	ret := m.ctrl.Call(m, "GetArticles", arg0)
 	ret0, _ := ret[0].([]*schema.Article)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret1, _ := ret[1].(paginator.Pagination)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // GetArticles indicates an expected call of GetArticles.
-func (mr *MockArticleRepositoryMockRecorder) GetArticles() *gomock.Call {
+func (mr *MockArticleRepositoryMockRecorder) GetArticles(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetArticles", reflect.TypeOf((*MockArticleRepository)(nil).GetArticles))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetArticles", reflect.TypeOf((*MockArticleRepository)(nil).GetArticles), arg0)
 }
 
 // Update mocks base method.

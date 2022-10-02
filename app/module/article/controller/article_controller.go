@@ -5,6 +5,7 @@ import (
 
 	"github.com/bangadam/go-fiber-starter/app/module/article/request"
 	"github.com/bangadam/go-fiber-starter/app/module/article/service"
+	"github.com/bangadam/go-fiber-starter/utils/paginator"
 	"github.com/bangadam/go-fiber-starter/utils/response"
 	"github.com/gofiber/fiber/v2"
 )
@@ -39,7 +40,15 @@ func NewArticleController(articleService service.ArticleService) ArticleControll
 // @Failure      500  {object}  response.Response
 // @Router       /articles [get]
 func (_i *articleController) Index(c *fiber.Ctx) error {
-	articles, err := _i.articleService.All()
+	paginate, err := paginator.Paginate(c)
+	if err != nil {
+		return err
+	}
+
+	var req request.ArticlesRequest
+	req.Pagination = paginate
+
+	articles, paging, err := _i.articleService.All(req)
 	if err != nil {
 		return err
 	}
@@ -47,6 +56,7 @@ func (_i *articleController) Index(c *fiber.Ctx) error {
 	return response.Resp(c, response.Response{
 		Messages: response.Messages{"Article list successfully retrieved"},
 		Data:     articles,
+		Meta:    paging,
 	})
 }
 

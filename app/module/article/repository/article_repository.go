@@ -2,7 +2,9 @@ package repository
 
 import (
 	"github.com/bangadam/go-fiber-starter/app/database/schema"
+	"github.com/bangadam/go-fiber-starter/app/module/article/request"
 	"github.com/bangadam/go-fiber-starter/internal/bootstrap/database"
+	"github.com/bangadam/go-fiber-starter/utils/paginator"
 )
 
 type articleRepository struct {
@@ -11,7 +13,7 @@ type articleRepository struct {
 
 //go:generate mockgen -destination=article_repository_mock.go -package=repository . ArticleRepository
 type ArticleRepository interface {
-	GetArticles() (articles []*schema.Article, err error)
+	GetArticles(req request.ArticlesRequest) (articles []*schema.Article, paging paginator.Pagination, err error)
 	FindOne(id uint64) (article *schema.Article, err error)
 	Create(article *schema.Article) (err error)
 	Update(id uint64, article *schema.Article) (err error)
@@ -25,12 +27,23 @@ func NewArticleRepository(db *database.Database) ArticleRepository {
 }
 
 // implement interface of IArticleRepository
-func (_i *articleRepository) GetArticles() (articles []*schema.Article, err error) {
-	if err := _i.DB.DB.Find(&articles).Error; err != nil {
-		return nil, err
+func (_i *articleRepository) GetArticles(req request.ArticlesRequest) (articles []*schema.Article, paging paginator.Pagination, err error) {
+	var count int64
+
+	query := _i.DB.DB.Model(&schema.Article{})
+	query.Count(&count)
+
+	req.Pagination.Count = count
+	req.Pagination = paginator.Paging(req.Pagination)
+
+	err = query.Offset(req.Pagination.Offset).Limit(req.Pagination.Limit).Find(&articles).Error
+	if err != nil {
+		return
 	}
 
-	return articles, nil
+	paging = *req.Pagination
+
+	return
 }
 
 func (_i *articleRepository) FindOne(id uint64) (article *schema.Article, err error) {

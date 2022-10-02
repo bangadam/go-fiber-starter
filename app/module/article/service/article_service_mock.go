@@ -9,6 +9,7 @@ import (
 
 	request "github.com/bangadam/go-fiber-starter/app/module/article/request"
 	response "github.com/bangadam/go-fiber-starter/app/module/article/response"
+	paginator "github.com/bangadam/go-fiber-starter/utils/paginator"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -36,18 +37,19 @@ func (m *MockArticleService) EXPECT() *MockArticleServiceMockRecorder {
 }
 
 // All mocks base method.
-func (m *MockArticleService) All() ([]*response.Article, error) {
+func (m *MockArticleService) All(arg0 request.ArticlesRequest) ([]*response.Article, paginator.Pagination, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "All")
+	ret := m.ctrl.Call(m, "All", arg0)
 	ret0, _ := ret[0].([]*response.Article)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret1, _ := ret[1].(paginator.Pagination)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // All indicates an expected call of All.
-func (mr *MockArticleServiceMockRecorder) All() *gomock.Call {
+func (mr *MockArticleServiceMockRecorder) All(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "All", reflect.TypeOf((*MockArticleService)(nil).All))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "All", reflect.TypeOf((*MockArticleService)(nil).All), arg0)
 }
 
 // Destroy mocks base method.
