@@ -15,7 +15,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/pelletier/go-toml/v2 v2.0.5
 	github.com/rs/zerolog v1.28.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.5
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/fx v1.18.1
