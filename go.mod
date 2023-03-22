@@ -16,7 +16,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.5
 	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.0
-	github.com/swaggo/swag v1.8.5
+	github.com/swaggo/swag v1.8.11
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/fx v1.18.1
 	gorm.io/driver/postgres v1.4.6
@@ -56,9 +56,9 @@ require (
 	go.uber.org/multierr v1.5.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.4.0 // indirect
-	golang.org/x/net v0.3.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/net v0.7.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
