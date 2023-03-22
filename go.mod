@@ -17,7 +17,7 @@ require (
 	github.com/rs/zerolog v1.28.0
 	github.com/stretchr/testify v1.8.0
 	github.com/swaggo/swag v1.8.5
-	go.uber.org/automaxprocs v1.5.1
+	go.uber.org/automaxprocs v1.5.2
 	go.uber.org/fx v1.18.1
 	gorm.io/driver/postgres v1.4.6
 	gorm.io/gorm v1.24.2
