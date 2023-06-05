@@ -7,6 +7,7 @@ import (
 	"github.com/bangadam/go-fiber-starter/app/database/schema"
 	"github.com/bangadam/go-fiber-starter/app/module/article/repository"
 	"github.com/bangadam/go-fiber-starter/app/module/article/request"
+	"github.com/bangadam/go-fiber-starter/utils/paginator"
 	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 )
@@ -58,14 +59,14 @@ func TestArticleService_All(t *testing.T) {
 						Title:   "test",
 						Content: "test",
 					},
-				}, nil)
+				}, paginator.Pagination{}, nil)
 			},
 			wantErr: false,
 		},
 		{
 			name: "TEST_FAILED_GET_ARTICLES",
 			prepare: func(f *fields) {
-				f.articleRepo.EXPECT().GetArticles(request.ArticlesRequest{}).Return(nil, errors.New("error"))
+				f.articleRepo.EXPECT().GetArticles(request.ArticlesRequest{}).Return(nil, paginator.Pagination{}, errors.New("error"))
 			},
 			wantErr: true,
 		},
