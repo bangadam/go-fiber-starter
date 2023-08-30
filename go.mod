@@ -13,9 +13,9 @@ require (
 	github.com/gofiber/swagger v0.1.1
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/golang/mock v1.6.0
-	github.com/pelletier/go-toml/v2 v2.0.5
+	github.com/pelletier/go-toml/v2 v2.1.0
 	github.com/rs/zerolog v1.28.0
-	github.com/stretchr/testify v1.8.2
+	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/swag v1.8.5
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/fx v1.18.1
