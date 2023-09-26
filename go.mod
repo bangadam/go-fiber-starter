@@ -14,7 +14,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/golang/mock v1.6.0
 	github.com/pelletier/go-toml/v2 v2.0.5
-	github.com/rs/zerolog v1.28.0
+	github.com/rs/zerolog v1.31.0
 	github.com/stretchr/testify v1.8.2
 	github.com/swaggo/swag v1.8.5
 	go.uber.org/automaxprocs v1.5.1
@@ -43,7 +43,7 @@ require (
 	github.com/leodido/go-urn v1.2.3 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.16 // indirect
+	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
@@ -57,7 +57,7 @@ require (
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
