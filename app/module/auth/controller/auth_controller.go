@@ -13,6 +13,7 @@ type authController struct {
 
 type AuthController interface {
 	Login(c *fiber.Ctx) error
+	Register(c *fiber.Ctx) error
 }
 
 func NewAuthController(authService service.AuthService) AuthController {
@@ -47,6 +48,35 @@ func (_i *authController) Login(c *fiber.Ctx) error {
 	return response.Resp(c, response.Response{
 		Data:     res,
 		Messages: response.Messages{"Login success"},
+		Code:     fiber.StatusOK,
+	})
+}
+
+// Register
+// @Summary      Register
+// @Description  API for register
+// @Tags         Authentication
+// @Body 	     request.RegisterRequest
+// @Success      200  {object}  response.Response
+// @Failure      401  {object}  response.Response
+// @Failure      404  {object}  response.Response
+// @Failure      422  {object}  response.Response
+// @Failure      500  {object}  response.Response
+// @Router       /api/v1/register [post]
+func (_i *authController) Register(c *fiber.Ctx) error {
+	req := new(request.RegisterRequest)
+	if err := response.ParseAndValidate(c, req); err != nil {
+		return err
+	}
+
+	res, err := _i.authService.Register(*req)
+	if err != nil {
+		return err
+	}
+
+	return response.Resp(c, response.Response{
+		Data:     res,
+		Messages: response.Messages{"Register success"},
 		Code:     fiber.StatusOK,
 	})
 }

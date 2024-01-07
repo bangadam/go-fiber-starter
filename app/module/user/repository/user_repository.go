@@ -11,7 +11,8 @@ type userRepository struct {
 
 //go:generate mockgen -destination=article_repository_mock.go -package=repository . UserRepository
 type UserRepository interface {
-	FindUserByUsername(username string) (user *schema.User, err error)
+	FindUserByEmail(email string) (user *schema.User, err error)
+	CreateUser(user *schema.User) (res *schema.User, err error)
 }
 
 func NewUserRepository(db *database.Database) UserRepository {
@@ -20,9 +21,16 @@ func NewUserRepository(db *database.Database) UserRepository {
 	}
 }
 
-// implement interface of IUserRepository
-func (_i *userRepository) FindUserByUsername(username string) (user *schema.User, err error) {
-	if err := _i.DB.DB.Where("user_name = ?", username).First(&user).Error; err != nil {
+func (_i *userRepository) FindUserByEmail(email string) (user *schema.User, err error) {
+	if err := _i.DB.DB.Where("email = ?", email).First(&user).Error; err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
+func (_i *userRepository) CreateUser(user *schema.User) (res *schema.User, err error) {
+	if err := _i.DB.DB.Create(&user).Error; err != nil {
 		return nil, err
 	}
 

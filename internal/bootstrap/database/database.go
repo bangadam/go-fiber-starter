@@ -65,6 +65,7 @@ func (_db *Database) MigrateModels() {
 func Models() []interface{} {
 	return []interface{}{
 		schema.Article{},
+		schema.User{},
 	}
 }
 

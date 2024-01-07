@@ -43,7 +43,8 @@ func (_i *AuthRouter) RegisterAuthRoutes() {
 	authController := _i.Controller.Auth
 
 	// define routes
-	_i.App.Route("/api/v1", func(router fiber.Router) {
+	_i.App.Route("/auth", func(router fiber.Router) {
 		router.Post("/login", authController.Login)
+		router.Post("/register", authController.Register)
 	})
 }

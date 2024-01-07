@@ -5,6 +5,7 @@ import (
 
 	"github.com/bangadam/go-fiber-starter/app/middleware"
 	"github.com/bangadam/go-fiber-starter/app/module/article"
+	"github.com/bangadam/go-fiber-starter/app/module/auth"
 	"github.com/bangadam/go-fiber-starter/app/router"
 	"github.com/bangadam/go-fiber-starter/internal/bootstrap"
 	"github.com/bangadam/go-fiber-starter/internal/bootstrap/database"
@@ -46,6 +47,7 @@ func main() {
 
 		// provide modules
 		article.NewArticleModule,
+		auth.NewAuthModule,
 
 		// start aplication
 		fx.Invoke(bootstrap.Start),
