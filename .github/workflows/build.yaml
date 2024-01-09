@@ -15,4 +15,4 @@ jobs:
     - name: Fetch Repository
       uses: actions/checkout@v2
     - name: Build App
-      run: go build cmd/example/main.go
+      run: go build cmd/main.go
