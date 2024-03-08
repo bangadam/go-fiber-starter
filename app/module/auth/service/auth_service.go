@@ -56,7 +56,7 @@ func (_i *articleService) Login(req request.LoginRequest) (res response.LoginRes
 
 	res.Token = claims.Token
 	res.Type = claims.Type
-	res.ExpiresAt = claims.ExpiresAt
+	res.ExpiresAt = claims.ExpiresAt.Unix()
 
 	return
 }

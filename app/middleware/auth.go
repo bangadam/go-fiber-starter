@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/bangadam/go-fiber-starter/utils/config"
@@ -35,7 +34,7 @@ func jwtError(c *fiber.Ctx, err error) error {
 type JWTClaims struct {
 	Token string `json:"token"`
 	Type  string `json:"type"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 func GenerateTokenAccess(userID uint64) (*JWTClaims, error) {
@@ -43,12 +42,12 @@ func GenerateTokenAccess(userID uint64) (*JWTClaims, error) {
 
 	mySigningKey := []byte(conf.Middleware.Jwt.Secret)
 	// Create the Claims
-	exp := time.Now().Add(conf.Middleware.Jwt.Expiration).Unix()
+	exp := time.Now().Add(conf.Middleware.Jwt.Expiration)
 	claims := &JWTClaims{
 		Type: "Bearer",
-		StandardClaims: jwt.StandardClaims{
-			Id:        strconv.FormatUint(userID, 10),
-			ExpiresAt: exp,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(exp),
+			Issuer:    "go-fiber-starter",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
