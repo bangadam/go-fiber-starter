@@ -37,7 +37,7 @@ type JWTClaims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateTokenAccess(userID uint64) (*JWTClaims, error) {
+func GenerateTokenAccess() (*JWTClaims, error) {
 	conf := config.NewConfig()
 
 	mySigningKey := []byte(conf.Middleware.Jwt.Secret)

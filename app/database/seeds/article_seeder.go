@@ -19,10 +19,8 @@ var articles = []schema.Article{
 }
 
 func (ArticleSeeder) Seed(conn *gorm.DB) error {
-	for _, row := range articles {
-		if err := conn.Create(&row).Error; err != nil {
-			return err
-		}
+	if err := conn.CreateInBatches(&articles, 100).Error; err != nil {
+		return err
 	}
 
 	return nil

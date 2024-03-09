@@ -49,7 +49,7 @@ func (_i *articleService) Login(req request.LoginRequest) (res response.LoginRes
 	}
 
 	// do create token
-	claims, err := middleware.GenerateTokenAccess(user.ID)
+	claims, err := middleware.GenerateTokenAccess()
 	if err != nil {
 		return
 	}
